@@ -7,7 +7,7 @@ const connection = mysql.createConnection({
   port: 3306,
 
   // Your username
-  user: 'dev',
+  user: 'root',
 
   // Be sure to update with your own MySQL password!
   password: 'password',
@@ -17,7 +17,6 @@ const connection = mysql.createConnection({
 connection.connect((err) => {
   if (err) throw err;
   console.log(`connected as id ${connection.threadId}`);
-  connection.end();
 });
 
 module.exports = connection;

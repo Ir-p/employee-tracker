@@ -9,6 +9,17 @@ module.exports = {
     serchByName: {
         name: "name", 
         message: "Employee name?",
-    }
+    },
+
+    addEmployee: [
+        {
+        name: "first_name",
+        message: "What is the employee first name?"
+        },
+        {
+        name: "last_name",
+        message: "What is the employee last name?"
+        }     
+    ]
 
 }
