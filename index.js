@@ -24,6 +24,9 @@ async function addEmployee(){
     // Map data to role names
     const roleNames = roles.map(role => role.title)
 
+
+    // Map data through managers' names
+
     console.log({ roleNames })
     const employeeAnswers = await inquirer.prompt([
         ...questions.addEmployee,
@@ -31,21 +34,29 @@ async function addEmployee(){
         {   
             name: "department_id",
             type: "list",
-            message: "Employee of which department",
+            message: "Which department does the employee work for?",
             choices: departments
         }, 
 
         // which role?
         {
-            name: "role_id",
+            name: "title",
             type: "list",
-            message: "What is employee's role?",
+            message: "What is the employee's role?",
             choices: roleNames
-        }
+        },
+        // Prompt to select the employee's manager
+        // {
+        //     name: "manager_id",
+        //     type: "list",
+        //     message: "Who is the employee's manager?"
+        //     choices: managerNames
+        // }
     ])
-    const department_id = departments.filter(department => department.title === employeeAnswers.department_id)[0].id
-    console.log(employeeAnswers)
+    const department_id = departments.filter(department => department.title === employeeAnswers.department_id)[0]
+    
     // Create new employee
+    console.table(employeeAnswers)
     }
     catch(e) {
         console.log(e)

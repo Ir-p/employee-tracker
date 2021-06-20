@@ -1,4 +1,5 @@
 module.exports = {
+    
     menu: {
         name: "choice", 
         type: "list",
@@ -8,7 +9,7 @@ module.exports = {
 
     serchByName: {
         name: "name", 
-        message: "Employee name?",
+        message: "What is the employee's name?",
     },
 
     addEmployee: [
@@ -19,7 +20,8 @@ module.exports = {
         {
         name: "last_name",
         message: "What is the employee last name?"
-        }     
+        },
+        
     ]
 
 }
