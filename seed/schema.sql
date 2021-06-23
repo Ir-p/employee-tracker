@@ -40,7 +40,7 @@ role_id INT,
 manager_id INT,
 PRIMARY KEY(id),
 FOREIGN KEY (role_id) REFERENCES role(id),
-FOREIGN KEY (manager_id) REFERENCES role(department_id)
+FOREIGN KEY (manager_id) REFERENCES employee(id)
 )
 
 -- Creates new rows containing data in named columns
@@ -51,7 +51,6 @@ INSERT INTO department (name)
 			("Finance"),
 			("Sales");
 
-SELECT * FROM employee_db.department;
 
 INSERT INTO role (title, salary, department_id)
 	VALUES('R&D Director', 150000, 1),
@@ -73,8 +72,7 @@ INSERT INTO role (title, salary, department_id)
 			('Sales Rep', 25000, 5);
 
 
-
-INSERT INTO department ()
-	VALUES
-SELECT * FROM employee_db.employee;
-		
+-- Join role and department talbe based on the primary and foreign key relation
+SELECT title, salary, name
+FROM role, department
+WHERE role.department_id = department.id;

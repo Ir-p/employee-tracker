@@ -20,49 +20,54 @@ async function addEmployee(){
     const departments = await store.getDepartments()
     // getRoles
     const roles = await store.getRoles()
+    const managers = await store.getManagers()
 
+    console.log(roles[0])
     // Map data to role names
     const roleNames = roles.map(role => role.title)
-
-
-    // Map data through managers' names
-
-    console.log({ roleNames })
+    const  managerNames = managers.map(employee => `${employee.first_name} ${employee.last_name}` )
     const employeeAnswers = await inquirer.prompt([
         ...questions.addEmployee,
-        // which Department?
-        {   
-            name: "department_id",
-            type: "list",
-            message: "Which department does the employee work for?",
-            choices: departments
-        }, 
 
-        // which role?
+       
+
+        // Prompt to select the employee's role
         {
             name: "title",
             type: "list",
             message: "What is the employee's role?",
             choices: roleNames
         },
-        // Prompt to select the employee's manager
-        // {
-        //     name: "manager_id",
-        //     type: "list",
-        //     message: "Who is the employee's manager?"
-        //     choices: managerNames
-        // }
+
+        {
+            name: "manager_id",
+            type: "list",
+            message: "Who is your manager?",
+            choices: managerNames
+        },
+       
     ])
-    const department_id = departments.filter(department => department.title === employeeAnswers.department_id)[0]
+   
+   
+    
+    const employeeRole = roles.filter(role => role.title === employeeAnswers.title)[0].id
+    employeeAnswers.role_id = employeeRole
+
+    const employeeManager = managers.filter(employee => 
+            `${employee.first_name} ${employee.last_name}` === employeeAnswers.manager_id)[0].id
+    employeeAnswers.manager_id = employeeManager
     
     // Create new employee
-    console.table(employeeAnswers)
+    store.addEmployee(employeeAnswers)
+        .then(console.log)
+        .catch(console.log)
+    
     }
     catch(e) {
         console.log(e)
     }
 
-    userMenu();
+    return userMenu();
 
 }
 
