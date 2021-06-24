@@ -12,16 +12,16 @@ module.exports = {
         message: "What is the employee's name?",
     },
 
-    addEmployee: [
-        {
-        name: "first_name",
-        message: "What is the employee first name?"
-        },
-        {
-        name: "last_name",
-        message: "What is the employee last name?"
-        },
+    // addEmployee: [
+    //     {
+    //     name: "first_name",
+    //     message: "What is the employee first name?"
+    //     },
+    //     {
+    //     name: "last_name",
+    //     message: "What is the employee last name?"
+    //     },
         
-    ]
+    // ]
 
 }

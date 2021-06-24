@@ -13,62 +13,71 @@ async function userMenu() {
    }
 }
 
-
 async function addEmployee(){
-    // getDepartments
     try {
     const departments = await store.getDepartments()
-    // getRoles
+    // get roles
     const roles = await store.getRoles()
+    // get manager 
     const managers = await store.getManagers()
 
-    console.log(roles[0])
-    // Map data to role names
-    const roleNames = roles.map(role => role.title)
-    const  managerNames = managers.map(employee => `${employee.first_name} ${employee.last_name}` )
-    const employeeAnswers = await inquirer.prompt([
-        ...questions.addEmployee,
+    
 
-       
-
-        // Prompt to select the employee's role
+    const employee = await inquirer.prompt(
+        [
+            {
+            name: "first_name",
+            message: "What is the employee first name?"
+            },
+            {
+            name: "last_name",
+            message: "What is the employee last name?"
+            },
+        ]
+    )
+    
+    // Map data to role_id
+    const roleNames = roles.map(({ id, title}) => ({ name: title, value: id }))
+   
+    // Prompt to select title name
+    const { role_id } = await inquirer.prompt(
         {
-            name: "title",
+            name: "role_id",
             type: "list",
             message: "What is the employee's role?",
             choices: roleNames
         },
+    )
 
+    employee.role_id = role_id
+    
+    // Map data to manager_id
+    const managerNames = managers.map(({id, first_name, last_name}) => ({
+        name: `${first_name} ${last_name}`,
+        value: id
+    }));
+
+    // Prompt to select the employee's manager
+    const { manager_id } = await inquirer.prompt(
         {
             name: "manager_id",
             type: "list",
-            message: "Who is your manager?",
+            message: "Who is the employee's manager?",
             choices: managerNames
         },
-       
-    ])
-   
-   
-    
-    const employeeRole = roles.filter(role => role.title === employeeAnswers.title)[0].id
-    employeeAnswers.role_id = employeeRole
-
-    const employeeManager = managers.filter(employee => 
-            `${employee.first_name} ${employee.last_name}` === employeeAnswers.manager_id)[0].id
-    employeeAnswers.manager_id = employeeManager
+    )
+    employee.manager_id = manager_id
     
     // Create new employee
-    store.addEmployee(employeeAnswers)
+    await store.addEmployee(employee)
         .then(console.log)
         .catch(console.log)
-    
     }
     catch(e) {
         console.log(e)
     }
 
     return userMenu();
-
 }
 
 async function querysearchByName(){
