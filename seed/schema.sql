@@ -37,11 +37,15 @@ last_name VARCHAR(30),
 -- role_id - INT to hold reference to role employee has
 role_id INT,
 -- manager_id - INT to hold reference to another employee that manages the employee being Created. This field may be null if the employee has no manager
-manager_id INT,
+manager_id INT DEFAULT NULL,
 PRIMARY KEY(id),
 FOREIGN KEY (role_id) REFERENCES role(id),
 FOREIGN KEY (manager_id) REFERENCES employee(id)
-)
+);
+
+-- Creates a row with NULL value for manager_id column
+INSERT INTO employee ()
+VALUES();
 
 -- Creates new rows containing data in named columns
 INSERT INTO department (name)

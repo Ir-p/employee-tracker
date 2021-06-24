@@ -63,7 +63,8 @@ async function addEmployee(){
             name: "manager_id",
             type: "list",
             message: "Who is the employee's manager?",
-            choices: managerNames
+            choices: managerNames,
+            default: NaN
         },
     )
     employee.manager_id = manager_id
