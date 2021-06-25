@@ -3,7 +3,7 @@ module.exports = {
     menu: {
         name: "choice", 
         type: "list",
-        message: "Next step",
+        message: "What would you like to do?",
         choices: ["view all employees", "add employee", "update employee's role", "exit"]
     },
 

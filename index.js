@@ -87,7 +87,7 @@ async function updateEmployee() {
    const employee_id = await getEmployeeId();
 
     // Which role?
-    // Get current role_id
+    // Get desired role_id
     const role_id = await getRoleId();
 
     // Find employee by employee id and update employee's role_id
