@@ -8,27 +8,38 @@ class Store{
     read() {
         return this.connection.query("SELECT * FROM employee;"); 
     }
-    searchByName(name){
-        return this.connection.query("SELECT * FROM")
-    }
 
     getDepartments(){
         return this.connection.query("SELECT * FROM department");
     }
+
     getRoles(){
         return this.connection.query("SELECT * FROM role");
     }
+
     getManagers(){
         return this.connection.query("SELECT * FROM employee");
     }
-    getTables(){
-        return this.connection.query(`SELECT role.id,title, salary, name
-        FROM role, department
-        WHERE role.department_id = department.id;`);
+
+    viewEmployees(){
+        return this.connection.query(`SELECT first_name, last_name,title, salary, name
+        FROM employee, role, department
+        WHERE role.department_id = department.id
+        AND employee.role_id = role.id;`);
     }
     addEmployee(employee){
         return this.connection.query(`INSERT INTO employee
         SET ?`, employee)
+    }
+
+    getEmployees(){
+        return this.connection.query(`SELECT * FROM employee`)
+    }
+    
+    updateEmployeeRole(id, role_id){
+        return this.connection.query(`UPDATE employee
+        SET ? 
+        WHERE ?`, [{role_id}, {id}])
     }
 }
 connection.query = promisify(connection.query)

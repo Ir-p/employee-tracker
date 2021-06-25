@@ -3,13 +3,13 @@ const mysql = require('mysql');
 const connection = mysql.createConnection({
   host: 'localhost',
 
-  // Your port, if not 3306
+  // Port
   port: 3306,
 
-  // Your username
+  // Username
   user: 'root',
 
-  // Be sure to update with your own MySQL password!
+  // Password
   password: 'password',
   database: 'employee_db',
 });

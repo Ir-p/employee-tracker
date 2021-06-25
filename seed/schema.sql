@@ -76,7 +76,8 @@ INSERT INTO role (title, salary, department_id)
 			('Sales Rep', 25000, 5);
 
 
--- Join role and department talbe based on the primary and foreign key relation
-SELECT title, salary, name
-FROM role, department
-WHERE role.department_id = department.id;
+-- Join employee, role and department talbes based on the primary and foreign key relation to view all employees
+SELECT first_name, last_name, title, name, salary
+FROM employee, role, department
+WHERE role.department_id = department.id
+AND employee.role_id = role.id;

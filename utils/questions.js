@@ -4,7 +4,7 @@ module.exports = {
         name: "choice", 
         type: "list",
         message: "Next step",
-        choices: ["search by employee", "add employee", "exit"]
+        choices: ["view all employees", "add employee", "update employee's role", "exit"]
     },
 
     serchByName: {
@@ -12,16 +12,5 @@ module.exports = {
         message: "What is the employee's name?",
     },
 
-    // addEmployee: [
-    //     {
-    //     name: "first_name",
-    //     message: "What is the employee first name?"
-    //     },
-    //     {
-    //     name: "last_name",
-    //     message: "What is the employee last name?"
-    //     },
-        
-    // ]
 
 }
