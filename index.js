@@ -23,7 +23,6 @@ async function userMenu() {
 // Console logs all employees
 async function viewEmployees() {
   try {
-    // const { name}  = await inquirer.prompt(questions.querysearchByName)
     const employees = await store.viewEmployees();
     console.table(employees);
   } catch (e) {
@@ -50,7 +49,7 @@ async function addEmployee() {
       },
     ]);
     const role_id = await getRoleId();
-    
+
     employee.role_id = role_id;
 
     // Map data to manager_id
@@ -70,7 +69,9 @@ async function addEmployee() {
     employee.manager_id = manager_id;
 
     // Create new employee
-    await store.addEmployee(employee).then(console.log).catch(console.log);
+  const newEmployee = await store.addEmployee(employee)
+  .then(console.log("New employee was added to Employee Database"))
+  .catch(console.log);
   } catch (e) {
     console.log(e);
   }
@@ -84,57 +85,60 @@ async function updateEmployee() {
 
     // get roles
     // Which epmloyee?
-   const employee_id = await getEmployeeId();
+    const employee_id = await getEmployeeId();
 
     // Which role?
     // Get desired role_id
     const role_id = await getRoleId();
 
     // Find employee by employee id and update employee's role_id
-    const updated = await store.updateEmployeeRole(employee_id, role_id)
-    
+    const updated = await store
+      .updateEmployeeRole(employee_id, role_id)
+      .then(console.log("The employee role was successfully updated!"))
+      .catch(console.log);
   } catch (e) {
     console.log(e);
   }
   return userMenu();
 }
+
 // Gets role_id
 async function getRoleId() {
-    // get roles
-    const roles = await store.getRoles();
-    // Map data to role_id
-    const roleNames = roles.map(({ id, title }) => ({
-      name: title,
-      value: id,
-    }));
+  // get roles
+  const roles = await store.getRoles();
+  // Map data to role_id
+  const roleNames = roles.map(({ id, title }) => ({
+    name: title,
+    value: id,
+  }));
 
-    // Prompt to select title name
-    const { role_id } = await inquirer.prompt({
-      name: "role_id",
-      type: "list",
-      message: "What is the employee's role?",
-      choices: roleNames,
-    });
-    return role_id
-  }
+  // Prompt to select title name
+  const { role_id } = await inquirer.prompt({
+    name: "role_id",
+    type: "list",
+    message: "What is the employee's role?",
+    choices: roleNames,
+  });
+  return role_id;
+}
 
-  async function getEmployeeId() {
-    // get roles
-    const employees = await store.getEmployees();
-    // Map data to role_id
-    const employeesNames = employees.map(({ id, first_name, last_name }) => ({
-      name: first_name + " " + last_name,
-      value: id,
-    }));
+async function getEmployeeId() {
+  // get roles
+  const employees = await store.getEmployees();
+  // Map data to role_id
+  const employeesNames = employees.map(({ id, first_name, last_name }) => ({
+    name: first_name + " " + last_name,
+    value: id,
+  }));
 
-    // Prompt to select title name
-    const { id } = await inquirer.prompt({
-      name: "id",
-      type: "list",
-      message: "What is the employee's name?",
-      choices: employeesNames,
-    });
-    return id
-  }
+  // Prompt to select title name
+  const { id } = await inquirer.prompt({
+    name: "id",
+    type: "list",
+    message: "What is the employee's name?",
+    choices: employeesNames,
+  });
+  return id;
+}
 // 🚀 start
 userMenu();

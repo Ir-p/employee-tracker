@@ -22,7 +22,7 @@ class Store{
     }
 
     viewEmployees(){
-        return this.connection.query(`SELECT first_name, last_name,title, salary, name
+        return this.connection.query(`SELECT employee.id, first_name, last_name,title, salary, name
         FROM employee, role, department
         WHERE role.department_id = department.id
         AND employee.role_id = role.id;`);
@@ -35,7 +35,7 @@ class Store{
     getEmployees(){
         return this.connection.query(`SELECT * FROM employee`)
     }
-    
+
     updateEmployeeRole(id, role_id){
         return this.connection.query(`UPDATE employee
         SET ? 

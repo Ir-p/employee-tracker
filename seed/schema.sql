@@ -6,7 +6,7 @@ USE employee_db;
 -- department:
 CREATE TABLE department(
 -- id - INT PRIMARY KEY
-	id INT AUTO_INCREMENT,
+	id INT NOT NULL AUTO_INCREMENT,
 -- name - VARCHAR(30) to hold department name
 	name VARCHAR(30),
     PRIMARY KEY(id)
@@ -15,7 +15,7 @@ CREATE TABLE department(
 -- role:
 CREATE TABLE role (
 -- id - INT PRIMARY KEY
-id INT AUTO_INCREMENT,
+id INT NOT NULL AUTO_INCREMENT,
 -- title - VARCHAR(30) to hold role title
 title VARCHAR(30),
 -- salary - DECIMAL to hold role salary
@@ -29,7 +29,7 @@ FOREIGN KEY (department_id) REFERENCES department(id)
 -- employee:
 CREATE TABLE employee (
 -- id - INT PRIMARY KEY
-id INT AUTO_INCREMENT,
+id INT NOT NULL AUTO_INCREMENT,
 -- first_name - VARCHAR(30) to hold employee first name
 first_name VARCHAR(30),
 -- last_name - VARCHAR(30) to hold employee last name
@@ -44,8 +44,8 @@ FOREIGN KEY (manager_id) REFERENCES employee(id)
 );
 
 -- Creates a row with NULL value for manager_id column
-INSERT INTO employee ()
-VALUES();
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES("None", "", NULL, NULL);
 
 -- Creates new rows containing data in named columns
 INSERT INTO department (name)
@@ -77,7 +77,7 @@ INSERT INTO role (title, salary, department_id)
 
 
 -- Join employee, role and department talbes based on the primary and foreign key relation to view all employees
-SELECT first_name, last_name, title, name, salary
+SELECT employee.id, first_name, last_name, title, name, salary
 FROM employee, role, department
 WHERE role.department_id = department.id
 AND employee.role_id = role.id;
